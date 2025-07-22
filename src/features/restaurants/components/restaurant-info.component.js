@@ -5,6 +5,7 @@ import star from '../../../../assets/star'
 import open from '../../../../assets/open'
 import {Spacer} from "../../../components/spacer/spacer.component";
 
+
 import {
     RestaurantCard,
     RestaurantCardCover,
@@ -17,7 +18,10 @@ import {
 } from "./restaurant-info-card.styles";
 
 
+
+
 export const RestaurantInfoCard = ({restaurant = {}}) => {
+
     const {
         name = "Some Restaurant",
         icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
@@ -27,10 +31,10 @@ export const RestaurantInfoCard = ({restaurant = {}}) => {
         address = "100 some random street",
         isOpenNow = true,
         rating = 4,
-        isClosedTemporarily = false,
+        isClosedTemporarily = true,
     } = restaurant;
 
-    const ratingArray = Array.from(new Array(Math.floor(rating)))
+    const ratingArray = Array.from(new Array(Math.floor(rating)));
 
     return (
         <RestaurantCard elevation={5}>
