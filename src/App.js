@@ -10,11 +10,32 @@ import {
     useFonts as useLato,
     Lato_400Regular
 } from '@expo-google-fonts/lato'
-import {AppNavigator} from './infrastructure/navigation/app.navigator'
 import {RestaurantsContextProvider} from "./services/restaurants/restaurants.context";
 import {LocationContextProvider} from "./services/location/location.context";
+import {Navigation} from "./infrastructure/navigation";
+import {FavoritesContextProvider} from "./services/favorites/favourites.context";
+import {initializeApp} from 'firebase/app';
+import {
+    API_KEY,
+    AUTH_DOMAIN,
+    PROJECT_ID,
+    STORAGE_BUCKET,
+    MESSAGING_SENDER_ID,
+    APP_ID,
+    MESUREMENT_ID
+} from '@env'
 
+const firebaseConfig = {
+    apiKey: API_KEY,
+    authDomain: AUTH_DOMAIN,
+    projectId: PROJECT_ID,
+    storageBucket: STORAGE_BUCKET,
+    messagingSenderId: MESSAGING_SENDER_ID,
+    appId: APP_ID,
+    measurementId: MESUREMENT_ID,
+};
 
+initializeApp(firebaseConfig);
 
 export default function App() {
     const [oswaldLoaded] = useOswald({
@@ -30,11 +51,13 @@ export default function App() {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <LocationContextProvider>
-                    <RestaurantsContextProvider>
-                        <AppNavigator />
-                    </RestaurantsContextProvider>
-                </LocationContextProvider>
+                <FavoritesContextProvider>
+                    <LocationContextProvider>
+                        <RestaurantsContextProvider>
+                            <Navigation/>
+                        </RestaurantsContextProvider>
+                    </LocationContextProvider>
+                </FavoritesContextProvider>
             </ThemeProvider>
             <ExpoStatusBar style="auto"/>
         </>
